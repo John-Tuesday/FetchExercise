@@ -130,7 +130,7 @@ private fun MainScreenLayout(
                     items(items = items[expandGroup]!!, key = { it.id }) { item ->
                         ListItem(
                             headlineContent = { Text(item.name) },
-                            supportingContent = { Text("${item.id}") }
+                            supportingContent = { Text("id: ${item.id}") }
                         )
                     }
                 }

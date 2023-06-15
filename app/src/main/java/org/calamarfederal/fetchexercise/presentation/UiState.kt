@@ -16,6 +16,9 @@ data class UIFetchItem(
     val name: String,
 )
 
+/**
+ * Represent the state of getting and processing the [UIFetchItem]
+ */
 sealed class UILoadState {
     object Loading : UILoadState()
     object NotLoading : UILoadState()
