@@ -28,6 +28,9 @@ class GetProcessedItemsTest {
         }
     }
 
+    /**
+     * Use a set of randomly generated [FetchItemDto] to test against
+     */
     @Before
     fun setUp() {
         val nameLengths = (5..10)
