@@ -32,13 +32,13 @@ android {
     }
     compileOptions {
 //        sourceCompatibility = JavaVersion.VERSION_1_8
-        sourceCompatibility = JavaVersion.current()
+        sourceCompatibility = JavaVersion.current() // fixes jvm version incompatibility using hilt
 //        targetCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.current()
+        targetCompatibility = JavaVersion.current() // fixes jvm version incompatibility using hilt
     }
     kotlinOptions {
 //        jvmTarget = "1.8"
-        jvmTarget = "17"
+        jvmTarget = "17" // fixes jvm version incompatibility using hilt
     }
     buildFeatures {
         compose = true
