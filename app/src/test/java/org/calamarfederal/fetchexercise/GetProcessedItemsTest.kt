@@ -9,10 +9,16 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.random.Random
 
+/**
+ * ## Test for [GetProcessedItemsImpl]
+ */
 class GetProcessedItemsTest {
     private lateinit var getProcessedItems: GetProcessedItems
     private lateinit var mockFetchExerciseApi: FetchExerciseApi
 
+    /**
+     * Generates a random string of [length] with characters `[a-Z]`
+     */
     private fun generateName(length: Int = 5): String = buildString(length) {
         for (i in 0 until length) {
             if (Random.nextBoolean())
