@@ -15,3 +15,9 @@ data class UIFetchItem(
      */
     val name: String,
 )
+
+sealed class UILoadState {
+    object Loading : UILoadState()
+    object NotLoading : UILoadState()
+    class Error(val message: String) : UILoadState()
+}

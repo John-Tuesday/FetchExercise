@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import org.calamarfederal.fetchexercise.domain.GetProcessedItems
 import javax.inject.Inject
 
@@ -22,18 +23,29 @@ class FetchExerciseViewModel @Inject constructor(
     /**
      * Read-Only [StateFlow] providing the processed [UIFetchItem]
      */
-    val fetchItemsState: StateFlow<List<UIFetchItem>> = _fetchItemsState
+    val fetchItemsState: StateFlow<List<UIFetchItem>> get() = _fetchItemsState
+
+    private val _loadingState: MutableStateFlow<UILoadState> = MutableStateFlow(UILoadState.NotLoading)
+
+    /**
+     * Read-only [StateFlow] detailing the status of [refreshItems]
+     */
+    val loadingState: StateFlow<UILoadState> get() = _loadingState
 
     private val networkScope get() =
-        viewModelScope + SupervisorJob() + CoroutineExceptionHandler { _, err -> err.printStackTrace() }
+        viewModelScope + SupervisorJob() + CoroutineExceptionHandler { _, err ->
+            err.printStackTrace()
+            _loadingState.update { UILoadState.Error(err.message ?: "Unknown Error") }
+        }
 
     /**
      * Load and set [fetchItemsState]
      */
     fun refreshItems() {
         networkScope.launch {
-            println("refreshItems()")
+            _loadingState.value = UILoadState.Loading
             _fetchItemsState.value = _getProcessedItems()
+            _loadingState.value = UILoadState.NotLoading
         }
     }
 
