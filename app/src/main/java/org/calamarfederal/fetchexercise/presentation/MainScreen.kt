@@ -26,7 +26,7 @@ import org.calamarfederal.fetchexercise.ui.theme.FetchExerciseTheme
 /**
  * # Fetch Coding Exercise Solution Screen
  *
- * [items] should already be culled and sorted
+ * [items] should already be culled and sorted. The keys of [items] should be their [UIFetchItem.listId]
  */
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable

@@ -18,10 +18,20 @@ private fun FetchItem.toUIOrNull(): UIFetchItem? {
     )
 }
 
+/**
+ * # Use Case for getting the processed items (according to the exercise prompt)
+ *
+ * group by [FetchItem.listId], order by [FetchItem.listId] then by [FetchItem.name]
+ */
 fun interface GetProcessedItems {
     suspend operator fun invoke(): Map<Int, List<UIFetchItem>>
 }
 
+/**
+ * # Default Implementation of [GetProcessedItems]
+ *
+ * although redundant in this simple example, the separation for easier testing and decoupling
+ */
 class GetProcessedItemsImpl @Inject constructor(
     private val fetchExerciseApi: FetchExerciseApi,
 ) : GetProcessedItems {
