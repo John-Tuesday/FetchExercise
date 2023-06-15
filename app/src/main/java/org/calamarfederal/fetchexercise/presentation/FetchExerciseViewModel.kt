@@ -18,12 +18,12 @@ import javax.inject.Inject
 class FetchExerciseViewModel @Inject constructor(
     private val _getProcessedItems: GetProcessedItems,
 ) : ViewModel() {
-    private val _fetchItemsState: MutableStateFlow<List<UIFetchItem>> = MutableStateFlow(listOf())
+    private val _fetchItemsState: MutableStateFlow<Map<Int, List<UIFetchItem>>> = MutableStateFlow(mapOf())
 
     /**
      * Read-Only [StateFlow] providing the processed [UIFetchItem]
      */
-    val fetchItemsState: StateFlow<List<UIFetchItem>> get() = _fetchItemsState
+    val fetchItemsState: StateFlow<Map<Int, List<UIFetchItem>>> get() = _fetchItemsState
 
     private val _loadingState: MutableStateFlow<UILoadState> = MutableStateFlow(UILoadState.NotLoading)
 

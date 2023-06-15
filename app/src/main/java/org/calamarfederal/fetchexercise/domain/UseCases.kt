@@ -19,7 +19,7 @@ private fun FetchItem.toUIOrNull(): UIFetchItem? {
 }
 
 fun interface GetProcessedItems {
-    suspend operator fun invoke(): List<UIFetchItem>
+    suspend operator fun invoke(): Map<Int, List<UIFetchItem>>
 }
 
 class GetProcessedItemsImpl @Inject constructor(
@@ -31,7 +31,7 @@ class GetProcessedItemsImpl @Inject constructor(
      * Convert to [UIFetchItem], dropping any item with a `null` or blank [name][UIFetchItem.name]
      * Sort by [listId][UIFetchItem.listId] then by [name][UIFetchItem.name]
      */
-    private fun processItemsForUI(inputList: List<FetchItem>): List<UIFetchItem> {
+    private fun processItemsForUI(inputList: List<FetchItem>): Map<Int, List<UIFetchItem>> {
         println("processing...")
         return inputList
             .asSequence()
@@ -42,10 +42,10 @@ class GetProcessedItemsImpl @Inject constructor(
                     else -> diff
                 }
             }
-            .toList()
+            .groupBy { it.listId }
     }
 
-    override suspend fun invoke(): List<UIFetchItem> {
+    override suspend fun invoke(): Map<Int, List<UIFetchItem>> {
         return processItemsForUI(fetchExerciseApi.getItems().map { it.toFetchItem() })
     }
 }
