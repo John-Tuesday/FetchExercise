@@ -81,6 +81,14 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("com.google.dagger:hilt-compiler:2.46.1")
 
+    // For instrumentation tests
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.46.1")
+    androidTestAnnotationProcessor("com.google.dagger:hilt-compiler:2.46.1")
+
+    // For local unit tests
+    testImplementation("com.google.dagger:hilt-android-testing:2.46.1")
+    testAnnotationProcessor("com.google.dagger:hilt-compiler:2.46.1")
+
     /**
      * # Retrofit
      */
