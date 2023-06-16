@@ -23,6 +23,8 @@ When sorting by "name," I'm using lexicographic order.
 1. Clone from VCS with Android Studio
 2. Build
 
+although sdk 34 just released, this projects targets 33
+
 I use Android Studio Beta, but I was able to clone the repo into a new project and everything just worked.
 
 ## Libraries:
@@ -39,4 +41,6 @@ On init, the view model will try to load the items from server. If it doesn't wo
 ## Testing:
 
 The test should work out of the box. UI Tests integrate with hilt for scalability.
+
+All tests pass with my Pixel 4 running GrapheneOS.
 
