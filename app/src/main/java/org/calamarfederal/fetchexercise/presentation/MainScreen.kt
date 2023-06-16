@@ -16,12 +16,23 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.calamarfederal.fetchexercise.presentation.UILoadState.Error
 import org.calamarfederal.fetchexercise.presentation.UILoadState.Loading
 import org.calamarfederal.fetchexercise.presentation.UILoadState.NotLoading
 import org.calamarfederal.fetchexercise.ui.theme.FetchExerciseTheme
+
+object MainScreenTags {
+    const val TopBarBackButton = "TopBar-Back"
+    const val TopBarRefreshButton = "TopBar-Refresh"
+    const val LoadErrorMessage = "LoadError-Message"
+    const val LoadErrorRefreshButton = "LoadError-Refresh"
+    const val LoadingIndicator = "Loading-Indicator"
+    const val ListIdGroupItem = "List-ID:group"
+    const val ItemInGroupListItem = "Item-in-Group"
+}
 
 /**
  * # Fetch Coding Exercise Solution Screen
@@ -82,7 +93,10 @@ private fun MainScreenTopBar(
         scrollBehavior = scrollBehavior,
         navigationIcon = {
             if (enableBack) {
-                IconButton(onClick = onBack) {
+                IconButton(
+                    onClick = onBack,
+                    modifier = Modifier.testTag(MainScreenTags.TopBarBackButton)
+                ) {
                     Icon(Icons.Default.ArrowBack, "back")
                 }
             }
@@ -90,7 +104,10 @@ private fun MainScreenTopBar(
         title = { Text(title) },
         actions = {
             if (showRefresh) {
-                IconButton(onClick = onRefresh) {
+                IconButton(
+                    onClick = onRefresh,
+                    modifier = Modifier.testTag(MainScreenTags.TopBarRefreshButton)
+                ) {
                     Icon(Icons.Default.Refresh, "refresh")
                 }
             }
@@ -123,14 +140,15 @@ private fun MainScreenLayout(
                         ListItem(
                             headlineContent = { Text("List id: $listId") },
                             supportingContent = { Text("size: ${items[listId]?.size}") },
-                            modifier = Modifier.clickable { onExpandGroup(listId) }
+                            modifier = Modifier.clickable { onExpandGroup(listId) }.testTag(MainScreenTags.ListIdGroupItem)
                         )
                     }
                 } else {
                     items(items = items[expandGroup]!!, key = { it.id }) { item ->
                         ListItem(
                             headlineContent = { Text(item.name) },
-                            supportingContent = { Text("id: ${item.id}") }
+                            supportingContent = { Text("id: ${item.id}") },
+                            modifier = Modifier.testTag(MainScreenTags.ItemInGroupListItem)
                         )
                     }
                 }
@@ -142,15 +160,21 @@ private fun MainScreenLayout(
 
             Loading -> {
                 item {
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(modifier = Modifier.testTag(MainScreenTags.LoadingIndicator))
                 }
             }
 
             is Error -> {
                 item {
                     Column {
-                        Text(text = loadState.message)
-                        TextButton(onClick = onRefresh) {
+                        Text(
+                            text = loadState.message,
+                            modifier = Modifier.testTag(MainScreenTags.LoadErrorMessage)
+                        )
+                        TextButton(
+                            onClick = onRefresh,
+                            modifier = Modifier.testTag(MainScreenTags.LoadErrorRefreshButton)
+                        ) {
                             Text("try to refresh")
                         }
                     }

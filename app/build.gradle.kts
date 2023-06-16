@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "org.calamarfederal.fetchexercise.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -74,6 +74,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:1.4.3")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.3")
 
+
     /**
      * # Dagger Hilt
      */
@@ -83,11 +84,11 @@ dependencies {
 
     // For instrumentation tests
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.46.1")
-    androidTestAnnotationProcessor("com.google.dagger:hilt-compiler:2.46.1")
+    kaptAndroidTest("com.google.dagger:hilt-compiler:2.46.1")
 
     // For local unit tests
     testImplementation("com.google.dagger:hilt-android-testing:2.46.1")
-    testAnnotationProcessor("com.google.dagger:hilt-compiler:2.46.1")
+    kaptAndroidTest("com.google.dagger:hilt-compiler:2.46.1")
 
     /**
      * # Retrofit
